@@ -17,7 +17,8 @@ defmodule CollaborativeEditorWeb.Router do
   scope "/", CollaborativeEditorWeb do
     pipe_through :browser
 
-    get "/", PageController, :home
+    # get "/", PageController, :home
+    live "/", LandingPage
   end
 
   # Other scopes may use custom stacks.
