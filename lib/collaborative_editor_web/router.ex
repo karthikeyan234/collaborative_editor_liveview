@@ -19,6 +19,8 @@ defmodule CollaborativeEditorWeb.Router do
 
     # get "/", PageController, :home
     live "/", LandingPage
+    live "/documents", Live.DocumentListLive
+    live "/document/:id", Live.DocumentLive
   end
 
   # Other scopes may use custom stacks.

@@ -1,0 +1,15 @@
+<div class="min-h-screen flex items-center justify-center">
+  <div class="w-full max-w-md">
+    <h1 class="text-2xl font-bold mb-4">Documents</h1>
+    <ul class="list-disc list-inside">
+      <%= for document <- @documents do %>
+        <li>
+          <a href={~p"/document/#{document.id}"} class="text-blue-500 hover:underline">
+            <%= document.title %>
+          </a>
+        </li>
+      <% end %>
+    </ul>
+  </div>
+</div>
+
