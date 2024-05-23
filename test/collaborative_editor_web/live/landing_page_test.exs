@@ -16,7 +16,7 @@ defmodule CollaborativeEditorWeb.LandingPageTest do
     |> form("#user-form", name: "KK")
     |> render_submit()
 
-    assert_redirect(view, ~p"/documents")
+    assert_redirect(view, ~p"/documents?name=KK")
   end
 
   test "shows error on empty name submit", %{conn: conn} do

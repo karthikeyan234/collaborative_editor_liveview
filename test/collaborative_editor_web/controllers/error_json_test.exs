@@ -2,7 +2,9 @@ defmodule CollaborativeEditorWeb.ErrorJSONTest do
   use CollaborativeEditorWeb.ConnCase, async: true
 
   test "renders 404" do
-    assert CollaborativeEditorWeb.ErrorJSON.render("404.json", %{}) == %{errors: %{detail: "Not Found"}}
+    assert CollaborativeEditorWeb.ErrorJSON.render("404.json", %{}) == %{
+             errors: %{detail: "Not Found"}
+           }
   end
 
   test "renders 500" do

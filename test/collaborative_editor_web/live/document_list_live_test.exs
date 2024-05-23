@@ -25,12 +25,12 @@ defmodule CollaborativeEditorWeb.DocumentListLiveTest do
   end
 
   test "displays live documents", %{conn: conn} do
-    {:ok, view, _html} = live(conn, "/documents")
+    {:ok, view, _html} = live(conn, "/documents?name=KK")
     assert has_element?(view, "li", "Document 1")
   end
 
   test "redirects to document edit page on click", %{conn: conn} do
-    {:ok, view, _html} = live(conn, "/documents")
+    {:ok, view, _html} = live(conn, "/documents?name=KK")
 
     document = Repo.get_by(Document, title: "Document 1")
 
@@ -38,6 +38,6 @@ defmodule CollaborativeEditorWeb.DocumentListLiveTest do
     |> element("a", "Document 1")
     |> render_click()
 
-    assert_redirected(view, ~p"/document/#{document.id}")
+    assert_redirected(view, ~p"/document/#{document.id}/KK")
   end
 end

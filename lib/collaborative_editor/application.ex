@@ -10,8 +10,10 @@ defmodule CollaborativeEditor.Application do
     children = [
       CollaborativeEditorWeb.Telemetry,
       CollaborativeEditor.Repo,
-      {DNSCluster, query: Application.get_env(:collaborative_editor, :dns_cluster_query) || :ignore},
+      {DNSCluster,
+       query: Application.get_env(:collaborative_editor, :dns_cluster_query) || :ignore},
       {Phoenix.PubSub, name: CollaborativeEditor.PubSub},
+      CollaborativeEditorWeb.Presence,
       # Start the Finch HTTP client for sending emails
       {Finch, name: CollaborativeEditor.Finch},
       # Start a worker by calling: CollaborativeEditor.Worker.start_link(arg)

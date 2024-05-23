@@ -1,1 +1,22 @@
-Hello
+<div class="min-h-screen flex flex-row">
+  <div class="flex-1 p-4">
+    <h1 class="text-2xl font-bold mb-4"><%= @document.title %></h1>
+    <textarea
+      id="document-content"
+      class="w-full h-64 p-2 border rounded focus:outline-none focus:shadow-outline"
+      phx-hook="DocumentEditor"
+    >
+      <%= @document.content %>
+    </textarea>
+  </div>
+  <div class="w-1/4 p-4 border-l border-gray-200">
+    <h2 class="text-xl font-bold mb-2">Currently Editing:</h2>
+    <ul class="list-disc list-inside">
+      <%= for {_key, %{metas: metas}} <- @users do %>
+        <%= for meta <- metas do %>
+          <li><%= meta.user %></li>
+        <% end %>
+      <% end %>
+    </ul>
+  </div>
+</div>

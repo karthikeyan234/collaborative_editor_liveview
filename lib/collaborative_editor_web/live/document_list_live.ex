@@ -4,9 +4,9 @@ defmodule CollaborativeEditorWeb.Live.DocumentListLive do
   alias CollaborativeEditor.Documents
 
   @impl true
-  def mount(_params, _session, socket) do
+  def mount(params, _session, socket) do
     documents = Documents.list_documents()
-    {:ok, assign(socket, documents: documents)}
+    name = params["name"]
+    {:ok, assign(socket, documents: documents, name: name)}
   end
-
 end
