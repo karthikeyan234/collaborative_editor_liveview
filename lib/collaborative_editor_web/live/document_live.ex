@@ -1,35 +1,24 @@
 defmodule CollaborativeEditorWeb.Live.DocumentLive do
   use CollaborativeEditorWeb, :live_view
+
   alias CollaborativeEditor.Documents
   alias CollaborativeEditorWeb.Presence
 
+  @moduledoc """
+  Handles the real-time collaborative document editing.
+  """
+
   @impl true
-  def mount(params, _session, socket) do
-    name = params["name"] || "Anonymous"
-    IO.inspect(name, label: "Session Data: name")
-
-    if connected?(socket), do: track_user_presence(socket, params["id"], name)
-
-    document = Documents.get_document!(params["id"])
-
-    # Fetch the current presence list immediately after mounting
-    users = Presence.list("document:#{params["id"]}")
-    IO.inspect(users, label: "Initial Presence Users")
-
-    {:ok, assign(socket, document: document, users: users, name: name)}
+  def mount(_params, _session, socket) do
+    {:ok, socket}
   end
 
   @impl true
-  def handle_info(%{event: "presence_diff", payload: diff}, socket) do
-    IO.inspect(diff, label: "Presence Diff")
-    users = Presence.list("document:#{socket.assigns.document.id}")
-    IO.inspect(users, label: "Presence Users")
-    {:noreply, assign(socket, users: users)}
-  end
+  def handle_params(%{"id" => id, "name" => name}, _url, socket) do
+    if connected?(socket), do: track_user_presence(socket, id, name)
 
-  @impl true
-  def handle_info(%{event: "content_update", payload: %{content: content}}, socket) do
-    {:noreply, assign(socket, document: %{socket.assigns.document | content: content})}
+    document = Documents.get_document!(id)
+    {:noreply, assign(socket, document: document, name: name, users: %{})}
   end
 
   @impl true
@@ -52,6 +41,17 @@ defmodule CollaborativeEditorWeb.Live.DocumentLive do
       {:error, _changeset} ->
         {:noreply, socket}
     end
+  end
+
+  @impl true
+  def handle_info(%{event: "content_update", payload: %{content: content}}, socket) do
+    {:noreply, assign(socket, document: %{socket.assigns.document | content: content})}
+  end
+
+  @impl true
+  def handle_info(%{event: "presence_diff", payload: _diff}, socket) do
+    users = Presence.list("document:#{socket.assigns.document.id}")
+    {:noreply, assign(socket, users: users)}
   end
 
   defp track_user_presence(socket, document_id, name) do

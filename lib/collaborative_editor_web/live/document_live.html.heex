@@ -5,6 +5,7 @@
       id="document-content"
       class="w-full h-64 p-2 border rounded focus:outline-none focus:shadow-outline"
       phx-hook="DocumentEditor"
+      phx-debounce="500"
     >
       <%= @document.content %>
     </textarea>

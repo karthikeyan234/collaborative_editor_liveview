@@ -1,28 +1,19 @@
-<div class="min-h-screen flex items-center justify-center">
-  <div class="w-full max-w-xs">
-    <form id="user-form" phx-submit="save_name">
-      <%= if Phoenix.Flash.get(@flash, :error) do %>
-        <div class="alert-error text-red-500 mb-4"><%= Phoenix.Flash.get(@flash, :error) %></div>
-      <% end %>
-      <div class="mb-4">
-        <label class="block text-gray-700 text-sm font-bold mb-2" for="username">
-          Enter your name:
-        </label>
-        <input
-          class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-          id="username"
-          type="text"
-          placeholder="Your name"
-          name="name"
-        />
+<div class="min-h-screen flex items-center justify-center bg-gray-100">
+  <div class="w-full max-w-md bg-white p-8 rounded-lg shadow-md">
+    <h1 class="text-2xl font-bold mb-6 text-center">Welcome to Collaborative Editor</h1>
+
+    <%= if Phoenix.Flash.get(@flash, :error) do %>
+      <div class="alert-error text-red-500 mb-4"><%= Phoenix.Flash.get(@flash, :error) %></div>
+    <% end %>
+
+    <form phx-submit="save_name" id="user-form" class="space-y-6">
+      <div>
+        <label for="name" class="block text-gray-700">Enter your name</label>
+        <input type="text" name="name" id="name" class="w-full mt-1 p-2 border rounded" />
       </div>
-      <div class="flex items-center justify-between">
-        <button
-          class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
-          type="submit"
-        >
-          Submit
-        </button>
+
+      <div>
+        <button type="submit" class="w-full bg-blue-500 text-white p-2 rounded hover:bg-blue-600">Submit</button>
       </div>
     </form>
   </div>

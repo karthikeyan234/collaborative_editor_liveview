@@ -1,9 +1,10 @@
-<div class="min-h-screen flex items-center justify-center">
-  <div class="w-full max-w-md">
-    <h1 class="text-2xl font-bold mb-4">Documents</h1>
-    <ul class="list-disc list-inside">
+<div class="min-h-screen flex flex-col items-center bg-gray-100">
+  <div class="w-full max-w-4xl p-8">
+    <h1 class="text-2xl font-bold mb-6 text-center">Documents</h1>
+
+    <ul class="list-disc list-inside w-full">
       <%= for document <- @documents do %>
-        <li>
+        <li class="mb-2">
           <a href={~p"/document/#{document.id}/#{@name}"} class="text-blue-500 hover:underline">
             <%= document.title %>
           </a>
